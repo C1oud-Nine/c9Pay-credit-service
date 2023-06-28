@@ -1,4 +1,4 @@
-package com.c9Pay.creditservice.dto;
+package com.c9Pay.creditservice.dto.charge;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
