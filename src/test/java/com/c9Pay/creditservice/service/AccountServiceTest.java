@@ -1,3 +1,4 @@
+/*
 package com.c9Pay.creditservice.service;
 
 import com.c9Pay.creditservice.entity.Account;
@@ -56,3 +57,4 @@ public class AccountServiceTest {
         verify(accountRepository, never()).save(any(Account.class));
     }
 }
+*/

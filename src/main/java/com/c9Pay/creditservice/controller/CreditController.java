@@ -30,10 +30,17 @@ public class CreditController {
        }
    }
 
-   @GetMapping("/{identifier}")
-    public ResponseEntity<AccountDetails> getAccount(@PathVariable String identifier){
-       AccountDetails accountDetails = new AccountDetails("test", 1234L);
-       return ResponseEntity.ok(accountDetails);
+   @GetMapping("/{serialNumber}")
+    public ResponseEntity<AccountDetails> getAccount(@PathVariable String serialNumber){
+       try{
+           Account findAccount= accountService.getAccountInfo(serialNumber);
+           AccountDetails details = new AccountDetails();
+           details.setCredit(findAccount.getCreditAmount());
+           return ResponseEntity.ok(details);
+       }
+       catch (Exception e){
+           return ResponseEntity.badRequest().build();
+       }
    }
 
 

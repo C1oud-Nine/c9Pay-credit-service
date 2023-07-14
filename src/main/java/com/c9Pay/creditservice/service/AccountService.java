@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,13 +20,17 @@ public class AccountService {
                 .creditAmount(0L)
                 .serialNumber(serialNumber)
                 .build();
-        checkValidation(newAccount);
+        if(isExist(newAccount))
+            throw new IllegalStateException("이미 생성된 계좌입니다.");
         accountRepository.save(newAccount);
     }
 
-    private void checkValidation(Account account){
-        List<Account> accounts = accountRepository.findAccountBySerialNumber(account.getSerialNumber());
-        if(!accounts.isEmpty()) throw new IllegalStateException("이미 계좌가 생성 되었습니다.");
+    public Account getAccountInfo(String serialNumber){
+        return accountRepository.findAccountBySerialNumber(serialNumber).orElseThrow();
+    }
 
+    private boolean isExist(Account account){
+        Optional<Account> accounts = accountRepository.findAccountBySerialNumber(account.getSerialNumber());
+        return accounts.isPresent();
     }
 }
