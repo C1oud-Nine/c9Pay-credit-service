@@ -20,6 +20,7 @@ public class CreditController {
 
    @PostMapping("/{serialNumber}")
     public ResponseEntity<?> createAccount(@PathVariable String serialNumber){
+       log.info("Starting registration for a new credit account");
        try{
            accountService.createNewAccount(serialNumber);
            return ResponseEntity.ok().build();
