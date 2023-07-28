@@ -31,7 +31,7 @@ public class CreditController {
        }
    }
 
-   @DeleteMapping("/{serialNumber")
+   @DeleteMapping("/{serialNumber}")
    public ResponseEntity<?> deleteAccount(@PathVariable String serialNumber){
        accountService.deleteAccount(serialNumber);
        return ResponseEntity.ok("계좌 삭제 성공");
@@ -52,13 +52,26 @@ public class CreditController {
 
    @PostMapping("/{identifier}/load")
     public ResponseEntity<?> loadCredit(@PathVariable String identifier, @RequestBody ChargeForm form){
-       return ResponseEntity.ok().build();
+       try {
+           accountService.loadCredit(identifier, form.getChargeAmount());
+           return ResponseEntity.ok("입금 성공");
+       }
+       catch (Exception ignored){
+           return ResponseEntity.badRequest().build();
+       }
+
    }
 
-   @PostMapping("/{to}/transfer/{from}")
+   @PostMapping("/{from}/transfer/{to}")
     public ResponseEntity<?> transfer(@PathVariable(name= "to") String to, @PathVariable(name="from") String from,
                                       @RequestBody ChargeAmount chargeAmount){
-       return ResponseEntity.ok().build();
+       try{
+           accountService.transfer(from, to, chargeAmount.getCreditAmount());
+           return ResponseEntity.ok("송금 성공");
+       }catch (Exception ignored){
+           return ResponseEntity.badRequest().build();
+       }
+
    }
 
 }

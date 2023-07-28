@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChargeAmount {
-    private Integer creditAmount;
+    private Long creditAmount;
 }

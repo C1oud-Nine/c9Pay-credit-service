@@ -1,6 +1,7 @@
 package com.c9Pay.creditservice.entity;
 
 import jakarta.persistence.*;
+import jdk.jfr.Unsigned;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,8 +21,15 @@ public class Account {
     @Column(unique = true,  nullable = false)
     private String serialNumber;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private Long creditAmount;
 
 
+    public void incrementCredit(Long credit){
+        this.creditAmount += credit;
+    }
+    public void decrementCredit(Long credit){
+        if(this.creditAmount < credit) throw new IllegalStateException();
+        else this.creditAmount -= credit;
+    }
 }

@@ -8,6 +8,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AccountDetails {
-    //@TODO 필요 추가 정보 추후 추가
     Long credit;
 }

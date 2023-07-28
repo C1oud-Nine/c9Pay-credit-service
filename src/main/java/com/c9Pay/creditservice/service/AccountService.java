@@ -26,16 +26,37 @@ public class AccountService {
     }
 
     public Account getAccountInfo(String serialNumber){
-        return accountRepository.findAccountBySerialNumber(serialNumber).orElseThrow();
+        return checkNullable(serialNumber);
     }
 
+    @Transactional
+    public void loadCredit(String serialNumber,Long amount){
+        Account findAccount = checkNullable(serialNumber);
+        findAccount.incrementCredit(amount);
+    }
+    @Transactional
+    public void transfer(String sender, String receiver, Long amount){
+        Account senderAccount = checkNullable(sender);
+        Account receiverAccount = checkNullable(receiver);
+        if(transferPartialFunds(senderAccount,amount)) throw new IllegalStateException();
+        senderAccount.decrementCredit(amount);
+        receiverAccount.incrementCredit(amount);
+    }
+    @Transactional
     public void deleteAccount(String serialNumber){
-        Account account = accountRepository.findAccountBySerialNumber(serialNumber)
-                .orElseThrow(IllegalArgumentException::new);
+        Account account = checkNullable(serialNumber);
         accountRepository.delete(account);
     }
     private boolean isExist(Account account){
         Optional<Account> accounts = accountRepository.findAccountBySerialNumber(account.getSerialNumber());
         return accounts.isPresent();
+    }
+
+    private boolean transferPartialFunds(Account account,Long amount){
+        return account.getCreditAmount() < amount;
+    }
+
+    private Account checkNullable(String serialNumber){
+        return accountRepository.findAccountBySerialNumber(serialNumber).orElseThrow(IllegalArgumentException::new);
     }
 }

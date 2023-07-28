@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChargeForm {
-    private Integer chargeAmount;
+    private Long chargeAmount;
     private String accountInfo;
 }
