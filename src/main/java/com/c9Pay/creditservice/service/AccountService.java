@@ -29,6 +29,11 @@ public class AccountService {
         return accountRepository.findAccountBySerialNumber(serialNumber).orElseThrow();
     }
 
+    public void deleteAccount(String serialNumber){
+        Account account = accountRepository.findAccountBySerialNumber(serialNumber)
+                .orElseThrow(IllegalArgumentException::new);
+        accountRepository.delete(account);
+    }
     private boolean isExist(Account account){
         Optional<Account> accounts = accountRepository.findAccountBySerialNumber(account.getSerialNumber());
         return accounts.isPresent();

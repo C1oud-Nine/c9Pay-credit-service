@@ -31,6 +31,11 @@ public class CreditController {
        }
    }
 
+   @DeleteMapping("/{serialNumber")
+   public ResponseEntity<?> deleteAccount(@PathVariable String serialNumber){
+       accountService.deleteAccount(serialNumber);
+       return ResponseEntity.ok("계좌 삭제 성공");
+   }
    @GetMapping("/{serialNumber}")
     public ResponseEntity<AccountDetails> getAccount(@PathVariable String serialNumber){
        try{
