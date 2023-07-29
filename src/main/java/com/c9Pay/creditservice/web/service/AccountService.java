@@ -1,7 +1,10 @@
-package com.c9Pay.creditservice.service;
+package com.c9Pay.creditservice.web.service;
 
 import com.c9Pay.creditservice.entity.Account;
-import com.c9Pay.creditservice.repository.AccountRepository;
+import com.c9Pay.creditservice.web.exception.InsufficientAccountBalanceException;
+import com.c9Pay.creditservice.web.exception.NotFoundAccountException;
+import com.c9Pay.creditservice.web.exception.InExistentAccountException;
+import com.c9Pay.creditservice.web.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,8 +23,7 @@ public class AccountService {
                 .creditAmount(0L)
                 .serialNumber(serialNumber)
                 .build();
-        if(isExist(newAccount))
-            throw new IllegalStateException("이미 생성된 계좌입니다.");
+        if(isExist(newAccount)) throw new InExistentAccountException();
         accountRepository.save(newAccount);
     }
 
@@ -38,7 +40,7 @@ public class AccountService {
     public void transfer(String sender, String receiver, Long amount){
         Account senderAccount = checkNullable(sender);
         Account receiverAccount = checkNullable(receiver);
-        if(transferPartialFunds(senderAccount,amount)) throw new IllegalStateException();
+        if(transferPartialFunds(senderAccount,amount)) throw new InsufficientAccountBalanceException();
         senderAccount.decrementCredit(amount);
         receiverAccount.incrementCredit(amount);
     }
@@ -57,6 +59,8 @@ public class AccountService {
     }
 
     private Account checkNullable(String serialNumber){
-        return accountRepository.findAccountBySerialNumber(serialNumber).orElseThrow(IllegalArgumentException::new);
+        return accountRepository.findAccountBySerialNumber(serialNumber)
+                .orElseThrow(()->
+                        new NotFoundAccountException(String.format("Serial number[%s] doesn't have an account", serialNumber)));
     }
 }

@@ -1,8 +1,8 @@
 ### 계좌 생성
-POST {{credit-api}}/account/test
+POST {{credit-api}}/account/testB
 
 ### 계좌 조회
-GET {{credit-api}}/account/test
+GET {{credit-api}}/account/testC
 
 ### 크레딧 충전
 POST {{credit-api}}/account/test/load
