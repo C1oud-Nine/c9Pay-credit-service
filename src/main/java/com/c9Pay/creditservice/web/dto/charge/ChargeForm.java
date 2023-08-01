@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ChargeForm {
     private Long chargeAmount;
-    private String accountInfo;
+    private String serialNumber;
 }
