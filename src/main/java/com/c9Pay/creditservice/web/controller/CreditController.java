@@ -5,6 +5,7 @@ import com.c9Pay.creditservice.web.dto.charge.ChargeAmount;
 import com.c9Pay.creditservice.web.dto.charge.ChargeForm;
 import com.c9Pay.creditservice.entity.Account;
 import com.c9Pay.creditservice.web.service.AccountService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ public class CreditController {
    @DeleteMapping("/{serialNumber}")
    public ResponseEntity<?> deleteAccount(@PathVariable String serialNumber){
        accountService.deleteAccount(serialNumber);
-       return ResponseEntity.ok("계좌 삭제 성공");
+       return ResponseEntity.ok().build();
    }
    @GetMapping("/{serialNumber}")
     public ResponseEntity<AccountDetails> getAccount(@PathVariable String serialNumber){
@@ -40,16 +41,17 @@ public class CreditController {
 
 
    @PostMapping("/{identifier}/load")
-    public ResponseEntity<?> loadCredit(@PathVariable String identifier, @RequestBody ChargeForm form){
-       accountService.loadCredit(identifier, form.getChargeAmount());
-       return ResponseEntity.ok("입금 성공");
+    public ResponseEntity<?> loadCredit(@PathVariable String identifier, @RequestBody ChargeForm form, HttpServletRequest request){
+       accountService.loadCredit(identifier, form.getQuantity());
+       log.info("충전 금액: {}", form.getQuantity());
+       return ResponseEntity.ok().build();
    }
 
    @PostMapping("/{from}/transfer/{to}")
     public ResponseEntity<?> transfer(@PathVariable(name= "to") String to, @PathVariable(name="from") String from,
                                       @RequestBody ChargeAmount chargeAmount){
        accountService.transfer(from, to, chargeAmount.getCreditAmount());
-       return ResponseEntity.ok("송금 성공");
+       return ResponseEntity.ok("transfer successful");
    }
 
 }
