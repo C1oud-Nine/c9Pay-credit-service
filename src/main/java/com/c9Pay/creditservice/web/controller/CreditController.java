@@ -36,6 +36,7 @@ public class CreditController {
        Account findAccount= accountService.getAccountInfo(serialNumber);
        AccountDetails details = new AccountDetails();
        details.setCredit(findAccount.getCreditAmount());
+       details.setSerialNumber(findAccount.getSerialNumber());
        return ResponseEntity.ok(details);
    }
 
