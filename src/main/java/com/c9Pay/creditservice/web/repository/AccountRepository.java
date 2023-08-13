@@ -1,8 +1,7 @@
 package com.c9Pay.creditservice.web.repository;
-import java.util.List;
 import java.util.Optional;
 
-import com.c9Pay.creditservice.entity.Account;
+import com.c9Pay.creditservice.data.entity.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

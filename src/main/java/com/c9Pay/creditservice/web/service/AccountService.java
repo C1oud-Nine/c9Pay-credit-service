@@ -1,6 +1,6 @@
 package com.c9Pay.creditservice.web.service;
 
-import com.c9Pay.creditservice.entity.Account;
+import com.c9Pay.creditservice.data.entity.Account;
 import com.c9Pay.creditservice.web.exception.InsufficientAccountBalanceException;
 import com.c9Pay.creditservice.web.exception.NotFoundAccountException;
 import com.c9Pay.creditservice.web.exception.InExistentAccountException;

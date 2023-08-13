@@ -1,9 +1,9 @@
 package com.c9Pay.creditservice.web.controller;
 
-import com.c9Pay.creditservice.web.dto.charge.AccountDetails;
-import com.c9Pay.creditservice.web.dto.charge.ChargeAmount;
-import com.c9Pay.creditservice.web.dto.charge.ChargeForm;
-import com.c9Pay.creditservice.entity.Account;
+import com.c9Pay.creditservice.data.dto.charge.AccountDetails;
+import com.c9Pay.creditservice.data.dto.charge.ChargeAmount;
+import com.c9Pay.creditservice.data.dto.charge.ChargeForm;
+import com.c9Pay.creditservice.data.entity.Account;
 import com.c9Pay.creditservice.web.service.AccountService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;

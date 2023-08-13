@@ -1,4 +1,4 @@
-package com.c9Pay.creditservice.entity;
+package com.c9Pay.creditservice.data.entity;
 
 import jakarta.persistence.*;
 import jdk.jfr.Unsigned;
