@@ -1,7 +1,0 @@
-DROP TABLE IF EXISTS accounts;
-
-CREATE TABLE accounts (
-    id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    serialNumber VARCHAR(255) UNIQUE NOT NULL,
-    creditAmount BIGINT NOT NULL
-);
