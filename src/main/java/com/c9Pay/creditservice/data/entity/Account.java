@@ -1,11 +1,13 @@
 package com.c9Pay.creditservice.data.entity;
 
 import jakarta.persistence.*;
-import jdk.jfr.Unsigned;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -15,15 +17,19 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Account {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue
+    @Column(name ="account_id")
     private Long id;
 
-    @Column(unique = true,  nullable = false)
+    @Column(unique = true,  nullable = false, name="serial_number")
     private String serialNumber;
 
     @Column(nullable = false)
     private Long creditAmount;
 
+
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    private List<Log> logs = new ArrayList<>();
 
     public void incrementCredit(Long credit){
         this.creditAmount += credit;
