@@ -3,7 +3,7 @@ server:
   shutdown: graceful
 spring:
   application:
-    name: credit-service:${hostname}
+    name: credit-service
   h2:
     console:
       enabled: true
